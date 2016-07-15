@@ -8,7 +8,6 @@ import com.mongodb.hadoop.util.MapredMongoConfigUtil;
 import com.mongodb.hadoop.util.MongoConfigUtil;
 import com.mongodb.hadoop.util.MongoTool;
 
-import redis.clients.jedis.Jedis;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -20,14 +19,12 @@ import java.net.UnknownHostException;
 
 public class WordsPairMain extends MongoTool {
 
-	public static Jedis jedis;
 	public static String dbName, inputColName, outputColname;
 
 	public WordsPairMain(String[] pArgs) throws UnknownHostException {
 
 
 		// set up redis
-		jedis = new Jedis("localhost");
 		dbName = pArgs[0];
 		inputColName = pArgs[1];
 		outputColname = pArgs[2];

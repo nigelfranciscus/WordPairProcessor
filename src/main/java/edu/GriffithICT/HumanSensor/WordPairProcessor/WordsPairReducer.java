@@ -29,21 +29,12 @@ public class WordsPairReducer extends Reducer<Text, IntWritable, NullWritable, B
 
 		// set the threshold, frequencel less then this number will be filtered
 		if (sum > 1) {
-			// writer to redis
-			String oldValueString = WordsPairMain.jedis.get(WordsPairMain.outputColname + "_" + key.toString());
-			
-			if(oldValueString != null && oldValueString.length() > 0){
-				sum += Integer.valueOf(oldValueString);
-			}
-	
-			WordsPairMain.jedis.set(WordsPairMain.outputColname + "_" + key.toString(), sum + "");
-
 			// write to mongo as the reducer
-			/*String[] wordPair = key.toString().split("_");
+			String[] wordPair = key.toString().split("_");
 			DBObject builder = new BasicDBObjectBuilder().start().add("word1", wordPair[0]).add("word2", wordPair[1])
 					.add("frequency", sum).get();
 			BSONWritable doc = new BSONWritable(builder);
-			context.write(NullWritable.get(), doc);*/
+			context.write(NullWritable.get(), doc);
 		}
 	}
 
