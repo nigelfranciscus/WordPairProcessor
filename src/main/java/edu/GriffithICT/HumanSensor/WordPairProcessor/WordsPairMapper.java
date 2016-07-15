@@ -66,10 +66,10 @@ public class WordsPairMapper extends Mapper<Object, BSONObject, Text, IntWritabl
 				// for each pair of word
 				for (int i = 0; i < words.size(); i++) {
 					for (int j = i + 1; j < words.size(); j++) {
-						if(!words.get(i).equals(words.get(j))){
+						if (!words.get(i).equals(words.get(j))) {
 							String wordPairKey = words.get(i) + "_" + words.get(j);
 							keyText.set(wordPairKey);
-							context.write(keyText, valueOne);	
+							context.write(keyText, valueOne);
 						}
 					}
 				}
@@ -83,19 +83,20 @@ public class WordsPairMapper extends Mapper<Object, BSONObject, Text, IntWritabl
 
 	private void buidDictionary() {
 		File file = new File(dictionaryFile);
-
-		try (Scanner scanner = new Scanner(file)) {
-
+		try{		
+			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				if (line.trim().length() > 0) {
 					dictionary.add(line.trim());
 				}
 			}
-			scanner.close();
-		} catch (IOException e) {
+			
+		}catch(Exception e){
 			e.printStackTrace();
 		}
+
+
 	}
 
 	private void buildIgnoredSet() {
